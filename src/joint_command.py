@@ -24,8 +24,9 @@ if __name__ == '__main__':
     ]
 
     num_joints = len(joint_state.name)
-
     joint_state.position = np.array([0.0] * num_joints)
+    joint_state.velocity = np.array([0.0] * num_joints)
+
     default_joints = [0.0, -math.pi/2, 0.0, 0.0, 0.0, 0.0]
 
     # limiting the movements to a smaller range (this is not the range of the robot, just the range of the movement

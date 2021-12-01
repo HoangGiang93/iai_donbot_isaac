@@ -1,0 +1,19 @@
+<launch>
+	<!-- Publish joint state -->
+	<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+		<rosparam param="source_list">["/iai_donbot/base/joint_states", "/iai_donbot/body/joint_states"]</rosparam>
+		<remap from="/joint_states" to="/iai_donbot/joint_states" />
+	</node> -->
+
+	<!-- Convert joint states to TF transforms for rviz, etc -->
+	<node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+		<remap from="/joint_states" to="/iai_donbot/joint_states" />
+	</node>
+
+	<!--Action server for the actionlib-based implementation of tf2_ros::BufferInterface-->
+	<node pkg="tf2_ros" type="buffer_server" name="buffer_server" output="screen" />
+
+	<!-- robot -->
+	<param name="robot_description" command="$(find xacro)/xacro $(find iai_donbot_description)/robots/iai_donbot_with_wheels.urdf.xacro" />
+	
+</launch>
