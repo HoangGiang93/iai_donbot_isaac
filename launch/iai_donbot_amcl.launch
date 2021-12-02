@@ -1,0 +1,16 @@
+<launch>
+	<!-- upload map -->
+	<arg name="navigation_map" default="$(find iai_refills_lab)/maps/refills_lab.yaml" />
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg navigation_map)" />
+
+	<node pkg="topic_tools" type="relay" name="relay_laser_front" args="/hokuyo_front/most_intense /base_scans"/>
+	<node pkg="topic_tools" type="relay" name="relay_laser_back" args="/hokuyo_back/most_intense /base_scans"/>
+
+	<node pkg="amcl" type="amcl" name="amcl">
+		<rosparam file="$(find iai_donbot_isaac)/config/amcl_params.yaml" command="load" />
+		<remap from="scan" to="/base_scans" />
+	</node>
+
+	<node pkg="iai_donbot_isaac" type="localization.py" name="localization" output="screen" />
+	
+</launch>

@@ -1,0 +1,6 @@
+<launch>
+
+  <!-- open rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find iai_donbot_isaac)/config/rviz_config.rviz" />
+
+</launch>

@@ -1,10 +1,4 @@
 <launch>
-	<!-- Publish joint state -->
-	<!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-		<rosparam param="source_list">["/iai_donbot/base/joint_states", "/iai_donbot/body/joint_states"]</rosparam>
-		<remap from="/joint_states" to="/iai_donbot/joint_states" />
-	</node> -->
-
 	<!-- Convert joint states to TF transforms for rviz, etc -->
 	<node pkg="robot_state_publisher" name="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 		<remap from="/joint_states" to="/iai_donbot/joint_states" />
@@ -16,4 +10,8 @@
 	<!-- robot -->
 	<param name="robot_description" command="$(find xacro)/xacro $(find iai_donbot_description)/robots/iai_donbot_with_wheels.urdf.xacro" />
 	
+	<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="fake_localization" output="screen" args="0 0 0 0 0 0 map world" /> -->
+
+	<node pkg="iai_donbot_isaac" type="odometry.py" name="odometry" output="screen" />
+
 </launch>
